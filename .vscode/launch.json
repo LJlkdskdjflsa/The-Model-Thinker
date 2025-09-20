@@ -1,0 +1,162 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: FastAPI (no reload)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "app.main:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8001"
+      ],
+      "jinja": true,
+      "justMyCode": true,
+      "env": {
+        "ACTIVE_PROFILE": "local",
+        "IS_LOCAL": "true"
+      }
+    },
+    {
+      "name": "Python: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "ACTIVE_PROFILE": "local",
+        "IS_LOCAL": "true",
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Pytest: Debug Current Test File",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": [
+        "-v",
+        "-s",
+        "${file}",
+        "--tb=short"
+        // "--vcr-record=all"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "purpose": [
+        "debug-test"
+      ],
+      "env": {
+        "ACTIVE_PROFILE": "local",
+        "IS_LOCAL": "true",
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Pytest: Debug Test Function",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": [
+        "-v",
+        "-s",
+        "${file}::${input:testFunction}",
+        "--tb=short"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "purpose": [
+        "debug-test"
+      ],
+      "env": {
+        "ACTIVE_PROFILE": "local",
+        "IS_LOCAL": "true",
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Pytest: PyTest (All Tests)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": [
+        "-v",
+        "-s",
+        "tests/",
+        "--tb=short"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "env": {
+        "ACTIVE_PROFILE": "local",
+        "IS_LOCAL": "true",
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      // ACTIVE_PROFILE=local IS_LOCAL=true celery -A app.tasks.celery_app.celery_app worker --beat --loglevel=info --pool=solo
+      "name": "Celery Worker without Beat",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "celery",
+      "args": [
+        "-A",
+        "app.tasks.celery_app.celery_app",
+        "worker",
+        // "--beat",
+        "--loglevel=info",
+        "--pool=solo"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "ACTIVE_PROFILE": "local",
+        "IS_LOCAL": "true",
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Run Celery Worker + Beat",
+      "type": "python",
+      "request": "launch",
+      "module": "celery",
+      "args": [
+        "-A",
+        "app.tasks.celery_app.celery_app",
+        "worker",
+        "--beat",
+        "-E",
+        "--loglevel=info",
+        "--pool=solo"
+      ],
+      "console": "integratedTerminal",
+      "env": {
+        "ACTIVE_PROFILE": "local",
+        "IS_LOCAL": "true",
+        "PYTHONPATH": "${workspaceFolder}"
+      },
+      "noDebug": true
+    },
+    {
+      "name": "Run create_and_push_tag.sh",
+      "type": "bashdb", // comes from the Bash Debug ext.
+      "request": "launch",
+      "program": "${workspaceFolder}/create_and_push_tag.sh",
+      "cwd": "${workspaceFolder}",
+      "args": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "testFunction",
+      "type": "promptString",
+      "description": "Enter the test function name (e.g., test_get_user_token_transactions)"
+    }
+  ]
+}
