@@ -1,0 +1,33 @@
+[project]
+name = "the-model-thinker"
+version = "0.1.0"
+description = "Python implementation of models from Scott Page's 'The Model Thinker'"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "matplotlib>=3.7.0",
+    "scipy>=1.10.0",
+    "networkx>=3.0",
+    "seaborn>=0.12.0",
+    "plotly>=5.14.0",
+    "jupyter>=1.0.0",
+    "ipywidgets>=8.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.3.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+]
+
+docs = [
+    "sphinx>=6.0.0",
+    "sphinx-rtd-theme>=1.2.0",
+    "myst-parser>=1.0.0",
+]
